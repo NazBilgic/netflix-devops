@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                git 'https://github.com/NazBilgic/netflix-devops.git'
+                git branch: 'main', url: 'https://github.com/NazBilgic/netflix-devops.git'
             }
         }
 
