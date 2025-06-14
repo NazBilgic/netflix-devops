@@ -1,0 +1,27 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs/
+*.log
+
+# Environment files
+.env
+*.env
+
+# Docker
+*.local
+docker-compose.override.yml
+
+# Alertmanager secrets
+monitoring/alertmanager/config.yml
+
+# VSCode / macOS
+.vscode/
+.DS_Store
+
+# Jenkins
+.jenkins/
