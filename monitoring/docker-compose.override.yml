@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3002:3000"
+    environment:
+      - GF_SMTP_ENABLED=true
+      - GF_SMTP_HOST=smtp.gmail.com:587
+      - GF_SMTP_USER=${GMAIL_USER}
+      - GF_SMTP_PASSWORD=${GMAIL_APP_PASSWORD}
+      - GF_SMTP_FROM_ADDRESS=${GMAIL_USER}
+      - GF_SMTP_FROM_NAME=Netflix DevOps Alerts
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
+  alertmanager:
+    image: prom/alertmanager
+    container_name: alertmanager
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./monitoring/alertmanager/config.yml:/etc/alertmanager/config.yml
+
+volumes:
+  grafana-storage:

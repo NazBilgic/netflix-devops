@@ -1,70 +1,151 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 🎮 Netflix-DevOps Clone - CI/CD, Monitoring, and Secure Deployment on AWS
 
-## Available Scripts
+This project is a **DevOps-focused Netflix Clone** built to showcase modern cloud-native deployment techniques using:
 
-In the project directory, you can run:
+- Docker & Docker Compose  
+- Jenkins for CI/CD  
+- Prometheus & Grafana for monitoring  
+- Node.js backend, React frontend  
+- AWS EC2 hosting  
+- Secure deployment with NGINX and optional HTTPS  
 
-### `npm start`
+It’s a full pipeline project designed for DevOps engineers who want to practice real-world automation, observability, and production-grade deployment practices.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🔍 Project Goals
 
-### `npm test`
+- Build and containerize a full-stack app (frontend + backend)
+- Automate CI/CD pipeline with Jenkins
+- Monitor the application using Prometheus and Grafana
+- Deploy securely on an AWS EC2 instance using Docker Compose
+- Apply DevSecOps basics and observability practices
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🧱 Tech Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+| Layer        | Tools Used                                  |
+|--------------|----------------------------------------------|
+| Frontend     | React, TMDB API, styled components           |
+| Backend      | Node.js, Express, REST API                   |
+| CI/CD        | Jenkins, GitHub Webhooks, SSH Credentials    |
+| Monitoring   | Prometheus, Grafana, Custom Node Exporters   |
+| Container    | Docker, Docker Compose                       |
+| Cloud Infra  | AWS EC2 (Linux), NGINX    |
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🧱 Project Structure
 
-### `npm run eject`
+```bash
+netflix-devOps/
+├── backend/               # Node.js Express API
+├── frontend/              # React-based frontend using TMDB
+├── docker-compose.yml     # Service orchestration
+├── jenkins/               # Jenkins pipeline & job configs
+├── monitoring/            # Prometheus, Grafana, alert rules
+│   ├── prometheus.yml
+│   ├── grafana/
+│   └── alertmanager/
+└── README.md              # Project documentation
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## ✨ How to Run It
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 1. Clone the project
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+git clone https://github.com/NazBilgic/netflix-devOps.git
+cd netflix-devOps
+```
 
-## Learn More
+### 2. Start the application locally
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+docker-compose up --build
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This spins up:
 
-### Code Splitting
+- `frontend`: React app with TMDB movies  
+- `backend`: REST API server  
+- `prometheus`: for monitoring  
+- `grafana`: for dashboarding  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## 🤖 Jenkins CI/CD
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Jenkins automatically builds and deploys the app when you push changes.
 
-### Making a Progressive Web App
+### What it does:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Builds backend and frontend Docker images  
+- SSHs into EC2 and pulls latest code  
+- Restarts the containers with new images  
 
-### Advanced Configuration
+> SSH Key ID used in Jenkins: `jenkins-github-key` (stored securely as Jenkins credentials)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## 📊 Monitoring with Prometheus & Grafana
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Prometheus scrapes custom metrics from backend  
+- Grafana visualizes app performance and error rates  
+- Alertmanager configured for HTTP 500 errors
 
-### `npm run build` fails to minify
+To access dashboards:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+http://<your-ec2-ip>:3000  # Grafana (default login: admin/admin)
+http://<your-ec2-ip>:9090  # Prometheus
+```
+
+---
+
+## 🔐 Security (Optional)
+
+- NGINX reverse proxy setup planned for HTTPS with Let's Encrypt
+- Basic auth or token-based access possible for backend
+
+---
+
+## 🧪 Observability Features
+
+- Custom `/metrics` endpoint in backend exposes:
+  - Request count
+  - HTTP status codes
+  - Response time
+- Prometheus scrapes every 15s and stores time-series data
+- Grafana panels include error alerts and usage trends
+
+---
+
+## 🌍 Live Demo (Optional)
+
+Deployed on AWS EC2:  
+**http://<your-ec2-ip>:3000** (Grafana)  
+**http://<your-ec2-ip>:3001** (Frontend)  
+**http://<your-ec2-ip>:5000** (Backend API)
+
+---
+
+## 📌 Future Improvements
+
+- Add HTTPS with Let's Encrypt  
+- Integrate Slack/Email alerts in Alertmanager  
+- Publish Docker images to Docker Hub  
+- Terraform the entire infrastructure
+
+---
+
+## 👩‍💻 Author
+
+**Naz Bilgic**  
+AWS DevOps Engineer | Cloud Enthusiast  
+📍 Based in London  
+🔗 [GitHub: @NazBilgic](https://github.com/NazBilgic)

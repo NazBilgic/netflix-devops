@@ -12,16 +12,23 @@ logs/
 .env
 *.env
 
-# Docker
+# Docker override & local
 *.local
 docker-compose.override.yml
 
-# Alertmanager secrets
+# Prometheus & Alertmanager secrets
+prometheus/prometheus.yml
 monitoring/alertmanager/config.yml
+
+# Grafana storage
+monitoring/grafana/
+!monitoring/grafana/datasource.yml
+!monitoring/grafana/grafana.ini
+!monitoring/grafana/dashboard.json
+
+# Jenkins
+jenkins/jenkins.io-2023.key
 
 # VSCode / macOS
 .vscode/
 .DS_Store
-
-# Jenkins
-.jenkins/
