@@ -8,7 +8,7 @@ const register = client.register;
 
 collectDefaultMetrics();
 
-// Özel metrik: 500 hata sayacı
+
 const error500Counter = new client.Counter({
   name: "http_500_errors_total",
   help: "Total number of HTTP 500 errors"
