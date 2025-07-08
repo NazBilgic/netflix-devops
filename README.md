@@ -1,151 +1,124 @@
+# Netflix-Inspired DevOps Project: CI/CD, Monitoring & Secure Deployment on AWS
 
-# 🎮 Netflix-DevOps Clone - CI/CD, Monitoring, and Secure Deployment on AWS
-
-This project is a **DevOps-focused Netflix Clone** built to showcase modern cloud-native deployment techniques using:
-
-- Docker & Docker Compose  
-- Jenkins for CI/CD  
-- Prometheus & Grafana for monitoring  
-- Node.js backend, React frontend  
-- AWS EC2 hosting  
-- Secure deployment with NGINX and optional HTTPS  
-
-It’s a full pipeline project designed for DevOps engineers who want to practice real-world automation, observability, and production-grade deployment practices.
+This project showcases a full DevOps lifecycle using a Netflix-style full-stack app. It demonstrates modern infrastructure automation, CI/CD, observability, and secure deployment practices in the cloud.
 
 ---
 
-## 🔍 Project Goals
+## Project Highlights
 
-- Build and containerize a full-stack app (frontend + backend)
-- Automate CI/CD pipeline with Jenkins
-- Monitor the application using Prometheus and Grafana
-- Deploy securely on an AWS EC2 instance using Docker Compose
-- Apply DevSecOps basics and observability practices
-
----
-
-## 🧱 Tech Stack
-
-| Layer        | Tools Used                                  |
-|--------------|----------------------------------------------|
-| Frontend     | React, TMDB API, styled components           |
-| Backend      | Node.js, Express, REST API                   |
-| CI/CD        | Jenkins, GitHub Webhooks, SSH Credentials    |
-| Monitoring   | Prometheus, Grafana, Custom Node Exporters   |
-| Container    | Docker, Docker Compose                       |
-| Cloud Infra  | AWS EC2 (Linux), NGINX    |
+- Full-stack application: Node.js backend + React frontend (TMDB API)
+- Containerized with Docker & orchestrated via Docker Compose
+- CI/CD pipeline with Jenkins, GitHub Webhooks & SSH deployment
+- Monitoring via Prometheus & Grafana with custom metrics and alerts
+- Hosted on AWS EC2 (Linux)
+- Secure deployment planned with NGINX and HTTPS
 
 ---
 
-## 🧱 Project Structure
+## Goals
+
+- Build and containerize a production-ready app
+- Automate deployment using Jenkins
+- Monitor system health and app performance
+- Secure and maintain infrastructure on AWS
+
+---
+
+## Tech Stack
+
+| Layer        | Tools                                 |
+|--------------|----------------------------------------|
+| Frontend     | React, TMDB API                        |
+| Backend      | Node.js, Express                       |
+| CI/CD        | Jenkins, GitHub, SSH Keys              |
+| Monitoring   | Prometheus, Grafana, Alertmanager      |
+| Container    | Docker, Docker Compose                 |
+| Infra        | AWS EC2, NGINX                         |
+
+---
+
+## Project Structure
 
 ```bash
 netflix-devOps/
-├── backend/               # Node.js Express API
-├── frontend/              # React-based frontend using TMDB
-├── docker-compose.yml     # Service orchestration
-├── jenkins/               # Jenkins pipeline & job configs
-├── monitoring/            # Prometheus, Grafana, alert rules
+├── backend/               # Node.js API
+├── frontend/              # React frontend using TMDB
+├── docker-compose.yml     # Docker orchestration
+├── jenkins/               # Jenkins jobs & pipeline
+├── monitoring/            # Prometheus & Grafana configs
 │   ├── prometheus.yml
 │   ├── grafana/
 │   └── alertmanager/
-└── README.md              # Project documentation
+└── README.md
 ```
 
 ---
 
-## ✨ How to Run It
-
-### 1. Clone the project
+## Run Locally
 
 ```bash
 git clone https://github.com/NazBilgic/netflix-devOps.git
 cd netflix-devOps
-```
-
-### 2. Start the application locally
-
-```bash
 docker-compose up --build
 ```
 
-This spins up:
-
-- `frontend`: React app with TMDB movies  
-- `backend`: REST API server  
-- `prometheus`: for monitoring  
-- `grafana`: for dashboarding  
+This will launch:
+- Frontend (React + TMDB)
+- Backend API (Node.js)
+- Prometheus & Grafana for monitoring
 
 ---
 
-## 🤖 Jenkins CI/CD
+## CI/CD Pipeline
 
-Jenkins automatically builds and deploys the app when you push changes.
+Jenkins automatically builds and deploys on each push:
 
-### What it does:
+- Builds Docker images
+- Connects to EC2 via SSH
+- Pulls latest code and restarts containers
 
-- Builds backend and frontend Docker images  
-- SSHs into EC2 and pulls latest code  
-- Restarts the containers with new images  
-
-> SSH Key ID used in Jenkins: `jenkins-github-key` (stored securely as Jenkins credentials)
+> SSH key used: `jenkins-github-key` (stored securely in Jenkins)
 
 ---
 
-## 📊 Monitoring with Prometheus & Grafana
+## Monitoring
 
-- Prometheus scrapes custom metrics from backend  
-- Grafana visualizes app performance and error rates  
-- Alertmanager configured for HTTP 500 errors
-
-To access dashboards:
-
-```
-http://<your-ec2-ip>:3000  # Grafana (default login: admin/admin)
-http://<your-ec2-ip>:9090  # Prometheus
-```
+- Prometheus scrapes metrics from the backend
+- Grafana dashboards show usage, error rates, response time
+- Alertmanager triggers notifications on HTTP 500 spikes
 
 ---
 
-## 🔐 Security (Optional)
+## Security (Planned)
 
-- NGINX reverse proxy setup planned for HTTPS with Let's Encrypt
-- Basic auth or token-based access possible for backend
-
----
-
-## 🧪 Observability Features
-
-- Custom `/metrics` endpoint in backend exposes:
-  - Request count
-  - HTTP status codes
-  - Response time
-- Prometheus scrapes every 15s and stores time-series data
-- Grafana panels include error alerts and usage trends
+- NGINX reverse proxy with optional HTTPS (Let’s Encrypt)
+- Basic authentication and token-based access possible
 
 ---
 
-## 🌍 Live Demo (Optional)
+## Observability
 
-Deployed on AWS EC2:  
-**http://<your-ec2-ip>:3000** (Grafana)  
-**http://<your-ec2-ip>:3001** (Frontend)  
-**http://<your-ec2-ip>:5000** (Backend API)
+The backend exposes a `/metrics` endpoint with:
+- Request count
+- Status codes
+- Response time
 
----
-
-## 📌 Future Improvements
-
-- Add HTTPS with Let's Encrypt  
-- Integrate Slack/Email alerts in Alertmanager  
-- Publish Docker images to Docker Hub  
-- Terraform the entire infrastructure
+Prometheus scrapes every 15s, Grafana visualizes the trends.
 
 ---
 
-## 👩‍💻 Author
+## Future Improvements
+
+- Add HTTPS with Let's Encrypt
+- Integrate Slack/email alerts via Alertmanager
+- Publish Docker images to Docker Hub
+- Terraform the infrastructure
+
+---
+
+## About the Author
 
 **Naz Bilgic**  
-AWS DevOps Engineer | Cloud Enthusiast  
-📍 Based in London  
-🔗 [GitHub: @NazBilgic](https://github.com/NazBilgic)
+Cloud & DevOps Engineer | AWS Enthusiast  
+Based in London  
+GitHub: [@NazBilgic](https://github.com/NazBilgic)
